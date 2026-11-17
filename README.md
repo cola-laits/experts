@@ -15,6 +15,7 @@ plugins/experts/
   .mcp.json                          the cola-experts connector (colaweb)
   skills/find/SKILL.md               /experts:find <topic or request>
   skills/profile/SKILL.md            /experts:profile <name or EID>
+  skills/recent/SKILL.md             /experts:recent [department] [time window]
 ```
 
 ## Install
@@ -38,8 +39,12 @@ again from **Discover**.
 ## Use
 
 In a Code session, type `/experts:find` with a topic or a pasted reporter request,
-or `/experts:profile` with a name or EID. You can also just ask, e.g.
+`/experts:profile` with a name or EID, or `/experts:recent` with a department or a time
+window to see who has published lately. You can also just ask, e.g.
 "Who in Liberal Arts could talk to a reporter about voter turnout?"
+
+The connector works only on the UT campus network. Off campus, connect to the UT VPN before
+starting a session. If a skill says the connector isn't connected, check the VPN first.
 
 ## Release a new version
 
