@@ -1,6 +1,6 @@
 # experts
 
-A Claude Code plugin marketplace named `cola-experts` (repo: `bentrax/experts`).
+A Claude Code plugin marketplace named `cola-experts` (repo: `cola-laits/experts`).
 
 ## experts
 
@@ -22,7 +22,7 @@ plugins/experts/
 
 In the Claude desktop app, open **Settings** → **Customize** → **Plugins**:
 
-1. **+ Add** → **Add marketplace**, enter `bentrax/experts`, and click **Sync**.
+1. **+ Add** → **Add marketplace**, enter `cola-laits/experts`, and click **Sync**.
 2. On the **Discover** tab, install **Experts**.
 3. Start a new session in the **Code** tab.
 
