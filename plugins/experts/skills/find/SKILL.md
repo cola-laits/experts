@@ -34,6 +34,7 @@ fields, and the vocabulary scholars would use (a reporter's "AI and jobs" → "a
 - `department`: a slug from `list_departments`, when the request names one.
 - `roles: ["faculty"]` unless the user wants researchers or graduate students too.
 - `list_research_areas` shows the tags departments actually use; helpful for picking terms.
+- Keep at least one term to 1–2 words: the search also matches recent OpenAlex work titles, and a title counts only when it holds every word of one term.
 - If results are thin, search again with broader or different terms before concluding.
 
 ## 3. Vet the top candidates
@@ -58,6 +59,12 @@ Life & Letters is `life_and_letters` in the profile: every Life & Letters (COLA'
 - Keep an item only if its `snippet` shows their full name as a person's name and fits their field; the match is by name only and can be a namesake.
 - Same weight as `news`: `mention` `headline` or `lead`, on the topic, counts as 1; `mention` `body` counts as 3.
 - No `life_and_letters` key or an empty list means nothing to show, not that there is no coverage.
+
+Recent works is `recent_works` on a search result (evidence field `recent works`): up to 3 OpenAlex works from the last 180 days whose title matched a term, attributed to the person by name.
+- Drop a work when its `affiliation` names a unit unrelated to the person's department, or its `venue` is far outside their field; it is likely a namesake elsewhere at UT. `match` `department` needs no check; `match` `name` is normal for correct matches and is not a reason to drop.
+- Vet everyone with a kept work, even below the 2 × N cut (the cap of 15 still holds).
+- A kept on-topic title counts as 1, as a publication title, and adds the flag "Recent work matched by name; verify".
+- Take the title from `recent_works`; the evidence text is cut short. Don't pass its `author_id` to `get_publications`.
 
 ## 4. Search the web and OpenAlex
 For each person you'll list, run these `WebSearch` calls, all in parallel:
@@ -94,10 +101,10 @@ Title · Department
 - **Evidence:** [Profile](profile_url) · [Paper or book title](url) · [UT Experts](url)
 - **COLA news:** [Headline (Mon YYYY)](url) · … (up to 3 kept `news` items, on-topic first, then newest; leave this line out if there are none)
 - **Life & Letters:** every kept `life_and_letters` item, not a sample, newest first, one sub-bullet each as [Headline (Mon YYYY)](url) (leave this line out if there are none)
-- **Publications (OpenAlex):** {author.works_count} works · [Title (YYYY)](doi_url, else openalex_url) · … (up to 3, newest first, kept apart from the COLA titles in Evidence; "no OpenAlex record identified" if none)
+- **Publications (OpenAlex):** {author.works_count} works · [Title (YYYY)](doi_url, else openalex_url) · … (kept `recent_works` first, then up to 3 from `get_publications`, newest first, no title twice; kept apart from the COLA titles in Evidence; "no OpenAlex record identified" if none of either)
 - **Contact:** email
 - **External mentions:** [Personal site](url) · [Outlet: "Headline" (Mon YYYY)](url) · [Bluesky](url) · [Substack](url) (up to 3 news items, on-topic first, then newest; "none found" if nothing)
-- **Flags:** e.g. "Not in UT Experts", "On leave", "OpenAlex match chosen by name; verify" (leave this line out if there are none)
+- **Flags:** e.g. "Not in UT Experts", "On leave", "OpenAlex match chosen by name; verify", "Recent work matched by name; verify" (leave this line out if there are none)
 ```
 
 For *feature* requests, add one or two possible story angles from their recent work just below the title line.
@@ -105,6 +112,6 @@ For *feature* requests, add one or two possible story angles from their recent w
 End with: *COLA data as of {data_as_of}. External mentions from a web search on {today's date}; may be incomplete. Check availability before referring.*
 
 Rules:
-- Use only facts in the records, except External mentions, which come only from web results, each linked to its source, and Publications (OpenAlex), which come only from `get_publications`. Never invent publications, titles, or contact details.
+- Use only facts in the records, except External mentions, which come only from web results, each linked to its source, and Publications (OpenAlex), which come only from `get_publications` and `recent_works`. Never invent publications, titles, or contact details.
 - Cite with the URLs in the record; if a claim has no URL, say which field it came from.
 - If nobody is a strong match, say so and list the closest people with what's missing.
