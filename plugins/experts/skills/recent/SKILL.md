@@ -1,7 +1,7 @@
 ---
 name: recent
 description: List College of Liberal Arts (COLA, UT Austin) faculty who have published recently, college-wide or in one department, from OpenAlex. Use when the user asks who in Liberal Arts or one of its departments has published recently, lately, this month or this semester, or asks for new or latest publications.
-argument-hint: [department] [time window, e.g. "last 90 days"] [how many]
+argument-hint: '[department] [time window, e.g. "last 90 days"] [how many]'
 ---
 
 # Recent COLA publications

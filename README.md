@@ -15,9 +15,8 @@ If you added this marketplace before it moved to `cola-laits/experts`, remove th
 
 ## Install
 
-In the Claude desktop app, open **Settings** → **Customize** → **Plugins**:
-
-1. **+ Add** → **Add marketplace**, enter `cola-laits/experts`, and click **Sync**.
+1. **Settings** → **Customize** → **Plugins** → **+ Add** → **Add marketplace**, enter
+   `cola-laits/experts`, and click **Sync**.
 2. On the **Discover** tab, next to **Experts**, click **Add to this computer**.
 3. Start a new session in the **Code** tab.
 
@@ -57,8 +56,7 @@ In a Code session, type one of these commands followed by your request:
 You can also just ask without a command, e.g. "Who in Liberal Arts could talk to a reporter
 about voter turnout?"
 
-Always check the details before contacting someone. Each answer links to its sources and says
-how current the data is.
+Each answer links to its sources and says how current the data is.
 
 The tools only answer on the UT campus network. If a skill says the campus network is required,
 connect to the UT VPN and ask again; you don't need a new session. If a skill says the connector
