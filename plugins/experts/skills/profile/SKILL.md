@@ -11,10 +11,11 @@ Person: $ARGUMENTS
 
 Call the `cola-experts` connector's `get_profile` with the name or EID. If the tool isn't available,
 tell the user the COLA experts connector isn't connected and stop.
-The server is reachable only from the UT campus network, so suggest this first: if you're off campus,
-connect to the UT VPN, then start a new session. If that isn't it, suggest typing `/mcp` to check
-`cola-experts`: if it's missing, remove the Experts plugin, install it again, and start a new session;
-if it shows as failed while on campus or the VPN, the server may be down.
+Suggest removing the Experts plugin, installing it again, and starting a new session; if that doesn't
+fix it, the server may be down.
+If any `cola-experts` tool call returns an error starting `Campus network required`, stop. Tell the
+user to connect to the UT VPN and ask again in this session. Don't suggest a new session or a
+reinstall, and don't answer from general knowledge.
 
 - **Several matches**: list them (name, title, department) and ask which one; then call again with the EID.
 - **No match**: say so; suggest a different spelling, or that they may not be in the COLA directory.
