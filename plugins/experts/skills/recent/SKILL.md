@@ -17,6 +17,9 @@ fix it, the server may be down.
 If any `cola-experts` tool call returns an error starting `Campus network required`, stop. Tell the
 user to connect to the UT VPN and ask again in this session. Don't suggest a new session or a
 reinstall, and don't answer from general knowledge.
+If a `cola-experts` tool call fails with a connection error (`ECONNRESET`, socket closed, fetch failed),
+retry the same call up to 3 times. If it still fails, stop and tell the user the connection dropped,
+likely from a network change, and to ask again in a moment in this session. Don't suggest a new session or a reinstall.
 If the other `cola-experts` tools are there but `recent_publications` isn't, say the server doesn't offer it yet and stop.
 
 ## 1. Understand the request
@@ -33,7 +36,7 @@ Once, with `since`, `department`, `roles`, and `limit` N.
 - **Widen once**: if the request gave no window and `people_count` is below N, call again with `since` = `window_start` and say the window was widened. The server holds the data already, so the second call spends nothing.
 - `since_clamped: true` → say the server only holds works since `window_start`.
 - Never call `get_publications` for the people listed: each call spends an OpenAlex budget shared by everyone. For one person's full list, point to `/experts:profile <name>`.
-- On a tool error, report its message and stop; don't build a list from the other tools. For `OpenAlex unavailable …` or a timeout, suggest asking again in a minute. For `recent_publications is not ready …`, say the web team has to run the index build.
+- On any other tool error, report its message and stop; don't build a list from the other tools. For `OpenAlex unavailable …` or a timeout, suggest asking again in a minute. For `recent_publications is not ready …`, say the web team has to run the index build.
 
 ## 3. Drop namesakes
 The server matches by name, so a different UT person with the same name can appear. Check every listed work:

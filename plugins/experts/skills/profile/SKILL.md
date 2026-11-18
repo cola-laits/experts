@@ -16,6 +16,9 @@ fix it, the server may be down.
 If any `cola-experts` tool call returns an error starting `Campus network required`, stop. Tell the
 user to connect to the UT VPN and ask again in this session. Don't suggest a new session or a
 reinstall, and don't answer from general knowledge.
+If a `cola-experts` tool call fails with a connection error (`ECONNRESET`, socket closed, fetch failed),
+retry the same call up to 3 times. If it still fails, stop and tell the user the connection dropped,
+likely from a network change, and to ask again in a moment in this session. Don't suggest a new session or a reinstall.
 
 - **Several matches**: list them (name, title, department) and ask which one; then call again with the EID.
 - **No match**: say so; suggest a different spelling, or that they may not be in the COLA directory.
